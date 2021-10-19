@@ -1,5 +1,5 @@
 # ECS-101-Compression
-* denotes files not to be tested on
+"*" denotes files not to be tested on
 
 Comp.py - compresses
 
