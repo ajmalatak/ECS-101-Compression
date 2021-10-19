@@ -1,10 +1,11 @@
 # ECS-101-Compression
+* denotes files not to be tested on
 
 Comp.py - compresses
 
 Decomp.py - decompresses
 
-FreqCheck.py - creates the compression table based on the frequency of strings in FreqTest.txt
+*FreqCheck.py - creates the compression table based on the frequency of strings in FreqTest.txt
 
 CompTable.txt stores characters and their binary representations on alternating lines.
 
