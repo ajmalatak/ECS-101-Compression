@@ -1,38 +1,38 @@
 BitTable = open("CompTable.txt")
-bt = BitTable.readlines()
+comp_table = BitTable.readlines()
 
-strpassage = open("StrPassage.txt", "w")
+output_text = open("StrPassage.txt", "w")
 
-bitpassage = open("BitPassage.txt")
-temp = bitpassage.read()
-s_b = temp[temp.index(".")+1:]
+t_binary = open("BitPassage.txt")
+temp = t_binary.read()
+input_binary = temp[temp.index(".")+1:]
 
-b_newline = ""
+NEWLINE_BINARY_VALUE = ""
 
-for x in range(0, len(bt)-1):
-    if bt[x] == ("\\n"+"\n"):
-        b_newline = bt[x+1][0:len(bt[x+1])-1]
+for x in range(0, len(comp_table)-1):
+    if comp_table[x] == ("\\n"+"\n"):
+        NEWLINE_BINARY_VALUE = comp_table[x+1][0:len(comp_table[x+1])-1]
         break
-if b_newline == "":
+if NEWLINE_BINARY_VALUE == "":
     print("fail")
     exit()
 
-bitlen = 0
+num_of_bits = 0
 i=0
-while i < len(s_b):
-    if s_b[i:i+2] == "00":
-        bitlen = 5
-    elif s_b[i:i+2] == "01":
-        bitlen = 7
-    elif s_b[i:i+2] == "10":
-        bitlen = 8
-    elif s_b[i:i+2] == "11":
-        bitlen = 6
-    for j in range(0, int(len(bt)/2)):
-        if s_b[i:i+bitlen] == b_newline:
-            strpassage.write("\n")
+while i < len(input_binary):
+    if input_binary[i:i+2] == "00":
+        num_of_bits = 5
+    elif input_binary[i:i+2] == "01":
+        num_of_bits = 7
+    elif input_binary[i:i+2] == "10":
+        num_of_bits = 8
+    elif input_binary[i:i+2] == "11":
+        num_of_bits = 6
+    for j in range(0, int(len(comp_table)/2)):
+        if input_binary[i:i+num_of_bits] == NEWLINE_BINARY_VALUE:
+            output_text.write("\n")
             break
-        elif s_b[i:i+bitlen] == bt[j*2+1][0:len(bt[j*2+1])-1]:
-            strpassage.write(bt[j*2][0:len(bt[j*2])-1])
+        elif input_binary[i:i+num_of_bits] == comp_table[j*2+1][0:len(comp_table[j*2+1])-1]:
+            output_text.write(comp_table[j*2][0:len(comp_table[j*2])-1])
             break
-    i+=bitlen
+    i+=num_of_bits

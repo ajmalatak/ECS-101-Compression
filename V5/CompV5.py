@@ -1,40 +1,45 @@
-BitTable = open("CompTable.txt")
-bt = BitTable.readlines()
+t_comp = open("CompTable.txt")
+comp_table = t_comp.readlines()
 
-strpassage = open("TestPassage.txt")
-s_p = strpassage.readlines()
+t_test = open("TestPassage.txt")
+input_text = t_test.readlines()
 
 test = open("TestPassage.txt")
-abc = test.read()
+passage_length = len(test.read())
 
-bitpassage = open("BitPassage.txt", "w")
+output_binary = open("BitPassage.txt", "w")
 
-b_newline = ""
-
-for x in range(0, len(bt)-1):
-    if bt[x] == ("\\n"+"\n"):
-        b_newline = bt[x+1][0:len(bt[x+1])-1]
+# Finding the binary value for "\n" in the compression table
+NEWLINE_BINARY_VALUE = ""
+for x in range(0, len(comp_table)-1):
+    if comp_table[x] == ("\\n"+"\n"):
+        NEWLINE_BINARY_VALUE = comp_table[x+1][0:len(comp_table[x+1])-1]
         break
-if b_newline == "":
+if NEWLINE_BINARY_VALUE == "":
     print("fail")
     exit()
 
-bitstr=""
-strlen = -1
-
-for h in range(0, len(s_p)):
+# binary_string holds the compressed string of 1s and 0s.
+# num_of_characters is the current size of the string in comp_table:
+#   this is why the compression table must be sorted with biggest strings first,
+#   because we want to look for the biggest possible strings first to save the most space
+binary_string=""
+num_of_characters = -1
+for h in range(0, len(input_text)):
     i=0
-    while i < len(s_p[h]):
-        for j in range(0, int(len(bt)/2)):
-            strlen = len(bt[j*2])-1
-            if bt[j*2][0:strlen] == s_p[h][i:i+strlen]:
-                bitstr+=(bt[j*2+1][0:len(bt[j*2+1])-1])
+    while i < len(input_text[h]):
+        for j in range(0, int(len(comp_table)/2)):
+            num_of_characters = len(comp_table[j*2])-1
+            if comp_table[j*2][0:num_of_characters] == input_text[h][i:i+num_of_characters]:
+                binary_string+=(comp_table[j*2+1][0:len(comp_table[j*2+1])-1])
                 break
-        i+=strlen
-    bitstr+=b_newline
+        i+=num_of_characters
+    binary_string+=NEWLINE_BINARY_VALUE
 
-print(len(bitstr))
-print(len(abc)*8)
-print(str(round(1-len(bitstr)/(len(abc)*8), 4)*100)+"% decrease")
+# Prints the efficiency of the compression
+print(len(binary_string))
+print(passage_length*8)
+print(str(round(1-len(binary_string)/(len(abc)*8), 4)*100)+"% decrease")
 
-bitpassage.write(len(bitstr).__str__()+"."+bitstr)
+# writing binary_string to the output file
+output_binary.write(len(binary_string).__str__()+"."+binary_string)
