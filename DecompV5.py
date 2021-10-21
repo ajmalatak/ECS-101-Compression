@@ -1,9 +1,9 @@
 BitTable = open("CompTable.txt")
 comp_table = BitTable.readlines()
 
-output_text = open("StrPassage.txt", "w")
+output_text = open("StringOutput.txt", "w")
 
-t_binary = open("BitPassage.txt")
+t_binary = open("BinaryOutput.txt")
 temp = t_binary.read()
 input_binary = temp[temp.index(".")+1:]
 

@@ -1,13 +1,13 @@
 t_comp = open("CompTable.txt")
 comp_table = t_comp.readlines()
 
-t_test = open("TestPassage.txt")
+t_test = open("InputString.txt")
 input_text = t_test.readlines()
 
-test = open("TestPassage.txt")
+test = open("InputString.txt")
 passage_length = len(test.read())
 
-output_binary = open("BitPassage.txt", "w")
+output_binary = open("BinaryOutput.txt", "w")
 
 # Finding the binary value for "\n" in the compression table
 NEWLINE_BINARY_VALUE = ""
@@ -39,7 +39,7 @@ for h in range(0, len(input_text)):
 # Prints the efficiency of the compression
 print(len(binary_string))
 print(passage_length*8)
-print(str(round(1-len(binary_string)/(len(abc)*8), 4)*100)+"% decrease")
+print(str(round(1-len(binary_string)/(passage_length*8), 4)*100)+"% decrease")
 
 # writing binary_string to the output file
 output_binary.write(len(binary_string).__str__()+"."+binary_string)
